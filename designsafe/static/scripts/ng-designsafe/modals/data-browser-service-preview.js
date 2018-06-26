@@ -8,7 +8,9 @@ class Preview{
    */
   constructor preview(file, listing) {
     var modal = $uibModal.open({
-      controller: ['$scope', '$uibModalInstance', '$sce', 'file', function ($scope, $uibModalInstance, $sce, file) {
+      controller: ['$scope', '$uibModalInstance', '$sce', 'file', function ($scope, $uibModalInstance, $sce, file) { 
+        //////////////////////////
+        constructor(file, listing){
         $scope.file = file;
         if (typeof listing !== 'undefined' &&
           typeof listing.metadata !== 'undefined' &&
@@ -17,13 +19,12 @@ class Preview{
           $scope.file.metadata = _listing.metadata;
         }
         $scope.busy = true;
-
+      }
         file.preview().then(
-          function (data) {
+          (data)=>{
             $scope.previewHref = $sce.trustAs('resourceUrl', data.href);
             $scope.busy = false;
-          },
-          function (err) {
+          }, (err)=>{
             var fileExt = file.name.split('.').pop();
             var videoExt = ['webm', 'ogg', 'mp4'];
 
@@ -31,13 +32,13 @@ class Preview{
             if (videoExt.includes(fileExt)) {
               $scope.prevVideo = true;
               file.download().then(
-                function (data) {
+                (data)=>{
                   var postit = data.href;
                   var oReq = new XMLHttpRequest();
                   oReq.open("GET", postit, true);
                   oReq.responseType = 'blob';
 
-                  oReq.onload = function () {
+                  oReq.onload = ()=>{
                     if (this.status === 200) {
                       var videoBlob = this.response;
                       var vid = URL.createObjectURL(videoBlob);
@@ -47,14 +48,14 @@ class Preview{
                       document.getElementById("videoPlayer").setAttribute('type', `video/${fileExt}`);
                     };
                   };
-                  oReq.onerror = function () {
+                  oReq.onerror = ()=>{
                     $scope.previewError = err.data;
                     $scope.busy = false;
                   };
                   oReq.send();
                   $scope.busy = false;
                 },
-                function (err) {
+                (err)=>{
                   $scope.previewError = err.data;
                   $scope.busy = false;
                 });
@@ -65,17 +66,17 @@ class Preview{
               // if filetype is ipynb
             } else {
               file.download().then(
-                function (data) {
+                (data)=>{
                   var postit = data.href;
                   var oReq = new XMLHttpRequest();
 
                   oReq.open("GET", postit, true);
 
-                  oReq.onload = function (oEvent) {
+                  oReq.onload = (oEvent)=>{
                     var blob = new Blob([oReq.response], { type: "application/json" });
                     var reader = new FileReader();
 
-                    reader.onload = function (e) {
+                    reader.onload = (e)=>{
                       var content = JSON.parse(e.target.result);
                       var target = $('.nbv-preview')[0];
                       nbv.render(content, target);
@@ -86,7 +87,7 @@ class Preview{
 
                   oReq.send();
                 },
-                function (err) {
+                (err)=>{
                   $scope.previewError = err.data;
                   $scope.busy = false;
                 });
@@ -96,75 +97,42 @@ class Preview{
 
         $scope.tests = allowedActions([file]);
 
-        $scope.download = function () {
+        $scope.download = ()=>{
           download(file);
         };
-        $scope.share = function () {
+        $scope.share = ()=>{
           share(file);
         };
-        $scope.copy = function () {
+        $scope.copy = ()=>{
           copy(file);
         };
-        $scope.move = function () {
+        $scope.move = ()=>{
           move(file, currentState.listing);
         };
-        $scope.rename = function () {
+        $scope.rename = ()=>{
           rename(file);
         };
-        $scope.viewMetadata = function () {
+        $scope.viewMetadata = ()=>{
           $scope.close();
           viewMetadata([file]);
         };
-        $scope.trash = function () {
+        $scope.trash = ()=>{
           trash(file);
         };
-        $scope.rm = function () {
+        $scope.rm = ()=>{
           rm(file);
         };
 
-        $scope.close = function () {
+        $scope.close = ()=>{
           $uibModalInstance.dismiss();
         };
 
       }],
       size: 'lg',
       resolve: {
-        file: function () { return file; }
+        file: ()=>{ return file; }
       }
     });
-
-    // modal.rendered.then(
-    //   function(){
-    //     if (file.name.split('.').pop() == 'ipynb'){
-    //       file.download().then(
-    //         function(data){
-    //           var postit = data.href;
-    //           var oReq = new XMLHttpRequest();
-
-    //           oReq.open("GET", postit, true);
-
-    //           oReq.onload = function(oEvent) {
-    //             var blob = new Blob([oReq.response], {type: "application/json"});
-    //             var reader = new FileReader();
-
-    //             reader.onload = function(e){
-    //               var content = JSON.parse(e.target.result)
-    //               var target = $('.nbv-preview')[0];
-    //               nbv.render(content, target);
-    //             }
-
-    //             reader.readAsText(blob)
-    //           };
-
-    //           oReq.send();
-    //         },
-    //         function (err) {
-    //           $scope.previewError = err.data;
-    //           $scope.busy = false;
-    //         }
-    //       );
-    // }})
-
     return modal.result;
   }
 }
