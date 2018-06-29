@@ -15,7 +15,7 @@ class Preview{
         if (typeof listing !== 'undefined' &&
           typeof listing.metadata !== 'undefined' &&
           !_.isEmpty(listing.metadata.project)) {
-          var _listing = angular.copy(listing);
+          let _listing = angular.copy(listing);
           $scope.file.metadata = _listing.metadata;
         }
         $scope.busy = true;
@@ -25,23 +25,23 @@ class Preview{
             $scope.previewHref = $sce.trustAs('resourceUrl', data.href);
             $scope.busy = false;
           }, (err)=>{
-            var fileExt = file.name.split('.').pop();
-            var videoExt = ['webm', 'ogg', 'mp4'];
+            let fileExt = file.name.split('.').pop();
+            let videoExt = ['webm', 'ogg', 'mp4'];
 
             //check if preview is video
             if (videoExt.includes(fileExt)) {
               $scope.prevVideo = true;
               file.download().then(
                 (data)=>{
-                  var postit = data.href;
-                  var oReq = new XMLHttpRequest();
+                  let postit = data.href;
+                  let oReq = new XMLHttpRequest();
                   oReq.open("GET", postit, true);
                   oReq.responseType = 'blob';
 
                   oReq.onload = ()=>{
                     if (this.status === 200) {
-                      var videoBlob = this.response;
-                      var vid = URL.createObjectURL(videoBlob);
+                      let videoBlob = this.response;
+                      let vid = URL.createObjectURL(videoBlob);
 
                       // set video source and mimetype
                       document.getElementById("videoPlayer").src = vid;
@@ -67,18 +67,18 @@ class Preview{
             } else {
               file.download().then(
                 (data)=>{
-                  var postit = data.href;
-                  var oReq = new XMLHttpRequest();
+                  let postit = data.href;
+                  let oReq = new XMLHttpRequest();
 
                   oReq.open("GET", postit, true);
 
                   oReq.onload = (oEvent)=>{
-                    var blob = new Blob([oReq.response], { type: "application/json" });
-                    var reader = new FileReader();
+                    let blob = new Blob([oReq.response], { type: "application/json" });
+                    let reader = new FileReader();
 
                     reader.onload = (e)=>{
-                      var content = JSON.parse(e.target.result);
-                      var target = $('.nbv-preview')[0];
+                      let content = JSON.parse(e.target.result);
+                      let target = $('.nbv-preview')[0];
                       nbv.render(content, target);
                     };
 
