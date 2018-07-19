@@ -33,7 +33,7 @@
                     <th style="border-top:none; width:25%;">DOI</th>
                     <td style="border-top:none; width:75%;">{{project.doi}}
                       <button class="btn btn-info btn-sm pull-right"
-                              ng-click="onCitation(browser.publication, project)">Citation
+                              ng-click="showCitation(project, browser.publication)">Citation
                       </button>
                     <td>
                   </tr>
@@ -267,7 +267,11 @@
                               </td>
                               <td style="border-top:none; padding-top:0px; padding-bottom:5px;">
                                 <button class="btn btn-info btn-sm"
+<<<<<<< HEAD
                                         ng-click="onCitation(browser.publication, experiment)">Citation
+=======
+                                        ng-click="showCitation(experiment, browser.publication)">Citation
+>>>>>>> Showing correct year on citations
                                 </button>
                               </td>
                             </tr>
@@ -538,8 +542,16 @@
               </p>
               <div>
                 <button class="btn btn-info btn-sm"
+<<<<<<< HEAD
                         ng-click="onCitation(browser.publication, analysis)">Citation
+=======
+<<<<<<< HEAD
+                        ng-click="onCitation(analysis)">Citation
+>>>>>>> Showing correct year on citations
                 </button>
+=======
+                        ng-click="showCitation(analysis, browser.publication)">Citation </button>
+>>>>>>> Showing correct year on citations
               </div>
             </div>
             <table  class="table table-bordered table-striped"
@@ -677,7 +689,15 @@
             </div>
             <div>
               <button class="btn btn-info btn-sm pull-right"
+<<<<<<< HEAD
                       ng-click="onCitation(browser.publication, simulation)">Citation
+=======
+<<<<<<< HEAD
+                      ng-click="onCitation(simulation)">Citation
+=======
+                      ng-click="showCitation(simulation, browser.publication)">Citation
+>>>>>>> Showing correct year on citations
+>>>>>>> Showing correct year on citations
               </button>
             </div>
           </div>
