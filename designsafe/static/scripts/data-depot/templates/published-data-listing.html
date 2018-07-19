@@ -39,6 +39,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                               ng-click="onCitation(project)">Citation
 =======
                               ng-click="showCitation(project, browser.publication)">Citation
@@ -49,7 +50,13 @@
 =======
                               ng-click="onCitation(browser.publication, project)">Citation
 >>>>>>> list date of publication instead of date of creation and display experiment citations properly
+<<<<<<< HEAD
 >>>>>>> list date of publication instead of date of creation and display experiment citations properly
+=======
+=======
+                              ng-click="showCitation(project, browser.publication)">Citation
+>>>>>>> Showing correct year on citations
+>>>>>>> Showing correct year on citations
                       </button>
                     <td>
                   </tr>
@@ -283,7 +290,7 @@
                               </td>
                               <td style="border-top:none; padding-top:0px; padding-bottom:5px;">
                                 <button class="btn btn-info btn-sm"
-                                        ng-click="onCitation(browser.publication, experiment)">Citation
+                                        ng-click="showCitation(experiment, browser.publication)">Citation
                                 </button>
                               </td>
                             </tr>
@@ -554,8 +561,7 @@
               </p>
               <div>
                 <button class="btn btn-info btn-sm"
-                        ng-click="onCitation(browser.publication, analysis)">Citation
-                </button>
+                        ng-click="showCitation(analysis, browser.publication)">Citation </button>
               </div>
             </div>
             <table  class="table table-bordered table-striped"
@@ -693,28 +699,7 @@
             </div>
             <div>
               <button class="btn btn-info btn-sm pull-right"
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                      ng-click="onCitation(browser.publication, simulation)">Citation
-=======
-=======
->>>>>>> Show correct year on citation
-<<<<<<< HEAD
-                      ng-click="onCitation(simulation)">Citation
-=======
                       ng-click="showCitation(simulation, browser.publication)">Citation
->>>>>>> Showing correct year on citations
-<<<<<<< HEAD
->>>>>>> Showing correct year on citations
-=======
-=======
-                      ng-click="onCitation(simulation, browser.publication)">Citation
->>>>>>> Show correct year on citation
->>>>>>> Show correct year on citation
-=======
-                      ng-click="onCitation(simulation, browser.publication)">Citation
->>>>>>> list date of publication instead of date of creation and display experiment citations properly
               </button>
             </div>
           </div>
