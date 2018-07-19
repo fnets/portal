@@ -2451,19 +2451,10 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
           var authors = '';
           var ieeeAuthors = '';
           var citationDate = '';
-                    
-          if (pub.doi){
-            try { citationDate = ent.created.split('T')[0]; }
-            catch(err) {
-              citationDate = '[publication date]';
-              console.error(err);
-            }
+          if (typeof pub === 'undefined'){
+            citationDate = ent.created.split('-')[0];
           } else {
-            try { citationDate = ent[0].meta.dateOfPublication.split('T')[0]; }
-            catch(err) {
-              citationDate = '[publication date]';
-              console.error(err);
-            }
+            citationDate = pub.created.split('-')[0];
           }
 
           var neesCitation = function (prj) {
