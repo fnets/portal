@@ -105,8 +105,8 @@ class FileManager(object):
         Obtain a file's mimetype given an Agave response file object.
 
         When developing locally, (DEBUG==True) we can't assume that Corral is 
-        mounted so we have to download the file to memory in order to pass its 
-        content to python-magic. In staging/prod where Corral is mounted, we
+        mounted so w have to download the file to memory in order to pass its 
+        bytecode to python-magic. In staging/prod where Corral is mounted, we
         build up the absolute path of the file and pass that to python-magic to
         get the mimetype.
 
