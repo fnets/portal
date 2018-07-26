@@ -298,7 +298,6 @@ Fixes:
 
 ## v20180601
 ## v2.6.10
->>>>>>> Udate CHANGELOG
 
 Fixes:
 
