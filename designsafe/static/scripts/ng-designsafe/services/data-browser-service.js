@@ -2450,13 +2450,13 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
           $ctrl.ui.styles = ['BibTeX', 'Endnote'];
           var authors = '';
           var ieeeAuthors = '';
-          var citationDate = '';
+          var citationYear = '';
+                    
           if (typeof pub === 'undefined'){
-            citationDate = ent.created.split('-')[0];
+              citationYear = ent.created.split('-')[0];
           } else {
-            citationDate = pub.created.split('-')[0];
+              citationYear = pub.created.split('-')[0];
           }
-
           var neesCitation = function (prj) {
             $http.get('/api/projects/publication/' + prj[0].meta.projectId)
             .then(function (resp) {
@@ -2500,7 +2500,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                     ' author = {' + authors + '} \n' +
                     ' title = {' + prj.value.title + '} \n' +
                     ' publisher = {DesignSafe-CI} \n' +
-                    ' year = {' + citationDate + '} \n' +
+                    ' year = {' + citationYear + '} \n' +
                     ' note = {' + prj.value.description + '} \n' +
                     '}';
                 } else if ($ctrl.ui.style === 'Endnote') {
@@ -2509,7 +2509,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                     '%A ' + authors + '\n' +
                     '%T ' + prj.value.title + '\n' +
                     '%I DesignSafe-CI\n' +
-                    '%D ' + citationDate + '\n';
+                    '%D ' + citationYear + '\n';
                 }
               };
               $ctrl.close = function () {
@@ -2524,6 +2524,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
               $ctrl.ui.ieeeCitation = $sce.trustAsHtml(ieeeAuthors + ', (' + citationDate + '), "' + prj.value.title + '" , DesignSafe-CI [publisher], Dataset, ' + prj.doi);
               $ctrl.doiurl = "https://doi.org/" + $ctrl.data.prj.doi.slice(4);
               $ctrl.doicit = $ctrl.data.prj.doi.slice(4);
+              $ctrl.getCitation();
             });
           };
 
@@ -2575,8 +2576,13 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                   ' author = {' + authors + '} \n' +
                   ' title = {' + pub.value.title + '} \n' +
                   ' publisher = {DesignSafe-CI} \n' +
+<<<<<<< HEAD
                   ' year = {' + citationDate + '} \n' +
                   ' note = {' + pub.value.description + '} \n' +
+=======
+                  ' year = {' + citationYear + '} \n' +
+                  ' note = {' + ent.value.description + '} \n' +
+>>>>>>> Fix citation and tree buttons
                   '}';
               } else if ($ctrl.ui.style === 'Endnote') {
                 $ctrl.data.citation =
@@ -2584,7 +2590,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                   '%A ' + authors + '\n' +
                   '%T ' + pub.value.title + '\n' +
                   '%I DesignSafe-CI\n' +
-                  '%D ' + citationDate + '\n';
+                  '%D ' + citationYear + '\n';
               }
             };
             $ctrl.close = function () {
@@ -2596,9 +2602,19 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
             };
 
             // display everything...
+<<<<<<< HEAD
             $ctrl.ui.ieeeCitation = $sce.trustAsHtml(ieeeAuthors + ', (' + citationDate + '), "' + pub.value.title + '" , DesignSafe-CI [publisher], Dataset, ' + pub.doi);
+<<<<<<< HEAD
             $ctrl.doiurl = "https://doi.org/" + pub.doi.slice(4);
             $ctrl.doicit = pub.doi.slice(4);
+=======
+            $ctrl.doiurl = "https://ezid.cdlib.org/id/" + pub.doi;
+            // $ctrl.getCitation();
+=======
+            $ctrl.ui.ieeeCitation = $sce.trustAsHtml(ieeeAuthors + ', (' + citationYear + '), "' + ent.value.title + '" , DesignSafe-CI [publisher], Dataset, ' + ent.doi);
+            $ctrl.getCitation();
+>>>>>>> Fix citation and tree buttons
+>>>>>>> Fix citation and tree buttons
           }
 
 
