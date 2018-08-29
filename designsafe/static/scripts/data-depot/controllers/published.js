@@ -438,8 +438,8 @@ export function PublishedDataCtrl($scope, $state, Django, $window, DataBrowserSe
         });
     };
 
-    $scope.onCitation = function(ent, pub) {
-      DataBrowserService.showCitation(ent, pub);
+    $scope.onCitation = function(publication, project) {
+        DataBrowserService.showCitation(publication, project);
     };
 
 }

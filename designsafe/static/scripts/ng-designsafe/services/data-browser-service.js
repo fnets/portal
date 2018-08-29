@@ -2450,13 +2450,22 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
           $ctrl.ui.styles = ['BibTeX', 'Endnote'];
           var authors = '';
           var ieeeAuthors = '';
-          var citationYear = '';
+          var citationDate = '';
                     
-          if (typeof pub === 'undefined'){
-              citationYear = ent.created.split('-')[0];
+          if (pub.doi){
+            try { citationDate = ent.created.split('T')[0]; }
+            catch(err) {
+              citationDate = '[publication date]';
+              console.error(err);
+            }
           } else {
-              citationYear = pub.created.split('-')[0];
+            try { citationDate = ent[0].meta.dateOfPublication.split('T')[0]; }
+            catch(err) {
+              citationDate = '[publication date]';
+              console.error(err);
+            }
           }
+
           var neesCitation = function (prj) {
             $http.get('/api/projects/publication/' + prj[0].meta.projectId)
             .then(function (resp) {
@@ -2500,7 +2509,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                     ' author = {' + authors + '} \n' +
                     ' title = {' + prj.value.title + '} \n' +
                     ' publisher = {DesignSafe-CI} \n' +
-                    ' year = {' + citationYear + '} \n' +
+                    ' year = {' + citationDate + '} \n' +
                     ' note = {' + prj.value.description + '} \n' +
                     '}';
                 } else if ($ctrl.ui.style === 'Endnote') {
@@ -2509,7 +2518,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                     '%A ' + authors + '\n' +
                     '%T ' + prj.value.title + '\n' +
                     '%I DesignSafe-CI\n' +
-                    '%D ' + citationYear + '\n';
+                    '%D ' + citationDate + '\n';
                 }
               };
               $ctrl.close = function () {
@@ -2576,13 +2585,17 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                   ' author = {' + authors + '} \n' +
                   ' title = {' + pub.value.title + '} \n' +
                   ' publisher = {DesignSafe-CI} \n' +
-<<<<<<< HEAD
                   ' year = {' + citationDate + '} \n' +
-                  ' note = {' + pub.value.description + '} \n' +
-=======
-                  ' year = {' + citationYear + '} \n' +
-                  ' note = {' + ent.value.description + '} \n' +
->>>>>>> Fix citation and tree buttons
+                  ' note = {' + prj.value.description + '} \n' +
+                  '}';
+              } else if ($ctrl.ui.style === 'Endnote') {
+                $ctrl.data.citation =
+                  '%0 Generic \n' +
+                  '%A ' + authors + '\n' +
+                  '%T ' + prj.value.title + '\n' +
+                  '%I DesignSafe-CI\n' +
+                  '%D ' + citationDate + '\n';
+              }
                   '}';
               } else if ($ctrl.ui.style === 'Endnote') {
                 $ctrl.data.citation =
@@ -2590,7 +2603,7 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
                   '%A ' + authors + '\n' +
                   '%T ' + pub.value.title + '\n' +
                   '%I DesignSafe-CI\n' +
-                  '%D ' + citationYear + '\n';
+                  '%D ' + citationDate + '\n';
               }
             };
             $ctrl.close = function () {
@@ -2602,7 +2615,6 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
             };
 
             // display everything...
-<<<<<<< HEAD
             $ctrl.ui.ieeeCitation = $sce.trustAsHtml(ieeeAuthors + ', (' + citationDate + '), "' + pub.value.title + '" , DesignSafe-CI [publisher], Dataset, ' + pub.doi);
 <<<<<<< HEAD
             $ctrl.doiurl = "https://doi.org/" + pub.doi.slice(4);
@@ -2610,11 +2622,14 @@ export function DataBrowserService($rootScope, $http, $q, $uibModal,
 =======
             $ctrl.doiurl = "https://ezid.cdlib.org/id/" + pub.doi;
             // $ctrl.getCitation();
+<<<<<<< HEAD
 =======
             $ctrl.ui.ieeeCitation = $sce.trustAsHtml(ieeeAuthors + ', (' + citationYear + '), "' + ent.value.title + '" , DesignSafe-CI [publisher], Dataset, ' + ent.doi);
             $ctrl.getCitation();
 >>>>>>> Fix citation and tree buttons
 >>>>>>> Fix citation and tree buttons
+=======
+>>>>>>> list date of publication instead of date of creation and display experiment citations properly
           }
 
 
