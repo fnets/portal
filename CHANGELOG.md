@@ -1,5 +1,12 @@
 # DesignSafe-CI Portal Release Notes
 
+## v3.0.4
+
+Fixes:
+
+- Notifications html rendering.
+- Hybrid sim, adding report or analysis was failing (DES-721).
+
 ## v3.0.3
 
 Fixes:
